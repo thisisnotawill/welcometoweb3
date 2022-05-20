@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import Slider from "react-slick";
 import Head from "next/head";
 
-function Home() {
+function WalletPage() {
   var settings = {
     dots: true,
     infinite: true,
@@ -13,18 +13,7 @@ function Home() {
   };
   return (
     <div className="h-[2000px]">
-      <Head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-
-        <title>Home</title>
-        <meta
-          name="description"
-          content="Get started with Web3 simply and safely."
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <h1>Wallets 101</h1>
+      <h1>Safety 101</h1>
       <p>
         Your wallet is your ticket to doing pretty much everything in Web3.
         Managing your wallets can get fairly complicated, but we’ll give you an
@@ -46,8 +35,8 @@ function Home() {
   );
 }
 
-// Home.getLayout = function getLayout(page: ReactNode) {
+// WalletPage.getLayout = function getLayout(page: ReactNode) {
 //   return <Layout>{page}</Layout>;
 // };
 
-export default Home;
+export default WalletPage;
