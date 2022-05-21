@@ -12,7 +12,7 @@ const path02Variants = {
   closed: { d: "M0 14.5L15 14.5" },
 };
 
-export const HamburgerIcon = ({
+export const MenuButton = ({
   sidebarOpen,
   setSidebarOpen,
 }: {
