@@ -11,11 +11,13 @@ const variants = {
   closed: { opacity: 0, x: -500, width: 0 },
 };
 export const Sidebar = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
   const router = useRouter();
   const currentPath = router.pathname;
+  const [sidebarOpen, setSidebarOpen] = useState(currentPath !== "/");
   console.log("currentPath", currentPath);
-  useEffect(() => {}, [currentPath]);
+  useEffect(() => {
+    setSidebarOpen(currentPath !== "/");
+  }, [currentPath]);
   return (
     <>
       <motion.div
@@ -35,35 +37,45 @@ export const Sidebar = () => {
             // Return a disclosure button for each page, and then a panel containing each of the subpageDetails
             return (
               <div key={`${page}-${index}`}>
-                <Disclosure>
+                <Disclosure
+                  defaultOpen={currentPath === pageDetails[page].path}
+                >
                   <Disclosure.Button
-                    className="py-2"
+                    className={`${
+                      currentPath === pageDetails[page].path
+                        ? "text-blue-400"
+                        : ""
+                    } py-2 hover hover:text-purple-400`}
                     key={pageDetails[page].title}
                     onClick={() => {
+                      // Have to use router push to prevent conflict with disclosure open/show panel
                       router.push(pageDetails[page].path);
                     }}
                   >
-                    {/* <Link href={pageDetails[page].path}> */}
                     {pageDetails[page].title}
-                    {/* </Link> */}
                   </Disclosure.Button>
-                  <Disclosure.Panel className="text-gray-500 flex flex-col pl-4 border-l-2 ml-2">
-                    {pageDetails[page]?.subpages?.map((subpage) => {
-                      return (
-                        <Link href={subpage.path} key={subpage.path}>
-                          <span
-                            className={`${
-                              currentPath === subpage.path
-                                ? "text-blue-500"
-                                : ""
-                            } whitespace-nowrap hover:cursor-pointer hover:text-purple-400`}
-                          >
-                            {subpage.title}
-                          </span>
-                        </Link>
-                      );
-                    }) ?? null}
-                  </Disclosure.Panel>
+                  {currentPath.includes(pageDetails[page].path) && (
+                    <Disclosure.Panel
+                      static
+                      className="text-gray-500 flex flex-col pl-4 border-l-2 ml-2"
+                    >
+                      {pageDetails[page]?.subpages?.map((subpage) => {
+                        return (
+                          <Link href={subpage.path} key={subpage.path}>
+                            <span
+                              className={`${
+                                currentPath === subpage.path
+                                  ? "text-blue-500"
+                                  : ""
+                              } my-1 hover:cursor-pointer hover:text-purple-400 leading-none`}
+                            >
+                              {subpage.title}
+                            </span>
+                          </Link>
+                        );
+                      }) ?? null}
+                    </Disclosure.Panel>
+                  )}
                 </Disclosure>
               </div>
             );

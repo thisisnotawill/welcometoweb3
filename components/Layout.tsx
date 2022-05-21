@@ -56,24 +56,34 @@ function Layout({ children }: { children: React.ReactNode }) {
         {/* Height of the main display must at least be the full screen height otherwise the sticky sidebar will not position correctly */}
         <div className="relative w-full">
           {previousPage ? (
-            <button
+            <motion.button
               className="absolute top-1/2 left-4 z-10 text-2xl"
               onClick={() => setDirection("left")}
+              whileHover={{
+                scale: 1.2,
+                transition: { duration: 0.2 },
+              }}
+              whileTap={{ x: 4 }}
             >
               <Link href={pageDetailsArray[pageIndex - 1].path}>
                 <BsFillCaretLeftFill className="hover:text-purple-400" />
               </Link>
-            </button>
+            </motion.button>
           ) : null}
           {nextPage ? (
-            <button
+            <motion.button
               className="absolute top-1/2 right-8 z-10 text-2xl"
               onClick={() => setDirection("right")}
+              whileHover={{
+                scale: 1.2,
+                transition: { duration: 0.2 },
+              }}
+              whileTap={{ x: -4 }}
             >
               <Link href={pageDetailsArray[pageIndex + 1].path}>
                 <BsFillCaretRightFill className="hover:text-purple-400" />
               </Link>
-            </button>
+            </motion.button>
           ) : null}
           <div className="mt-[75px] p-4 w-full sm:p-12 h-[calc(100vh_-_75px)] overflow-y-scroll relative">
             <Head>
